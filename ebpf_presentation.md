@@ -1,35 +1,59 @@
 ---
 marp: true
-title: Real time 
-theme: gaia
+title: Introduction to eBPF 
+theme: default
+style: |
+  section.title  h1 {
+    font-size: 250%;
+    text-align: center;
+  }
+  section.title  p {
+    font-size: 250%;
+    text-align: center;
+  }
+  section.plan h1 {
+    font-size: 250%;
+  }
+  section.plan li:nth-child(1) {
+    font-size: 200%;
+    font-weight: bold
+  }
+  section.plan li {
+    font-size: 150%;
+  }
+  
 paginate: true
 ---
 
-# <!-- fit --> Dynamically programming the kernel
+<!-- _class: title -->
 
-![center](images/EBPF_logo.png)
+# Dynamically programming the kernel using
 
----
-
-# Install source
-
-On ubuntu 24.04
-```bash
-sudo apt-get install bpfcc-tools linux-headers-$(uname -r)
-```
-
-check install:
-```
-sudo opensnoop-bpfcc
-```
-
-[source](https://github.com/iovisor/bcc/blob/master/INSTALL.md)
+![50%](images/EBPF_logo.png)
 
 ---
 
-# BCC tools
+<!-- _class: plan -->
+<!-- _backgroundColor: orange -->
+<!-- _color: white -->
 
-[source](https://github.com/iovisor/bcc?tab=readme-ov-file)
+# Plan
+
+- Introduction
+- Usage example with bcc
+- Limitation
 
 ---
+
+## Introduction - What is eBPF?
+
+---
+
+## Introduction - Why eBPF?
+
+---
+
+## Introduction - How it works?
+
+
 
