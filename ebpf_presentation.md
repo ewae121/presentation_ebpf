@@ -21,6 +21,9 @@ style: |
   section.plan li {
     font-size: 150%;
   }
+  section.image p:has(img) {
+    text-align: center;
+  }
   
 paginate: true
 ---
@@ -63,11 +66,7 @@ BPF signifiait à l'origine Berkeley Packet Filter, mais maintenant qu’eBPF (�
 
 ---
 
-# Introduction - What is eBPF? To know
-
-Le portail d'eBPF se trouve sur http://eBPF.io.
-
-Membres du consortium eBPF: Microsoft, Google, Netflix, Facebook...
+![bg auto](images/state_of_ebpf.png)
 
 ---
 
@@ -81,13 +80,38 @@ Depuis toujours, le système d'exploitation est l’endroit idéal pour impléme
 
 # Introduction - Why eBPF?
 
+## Fonctionnement des applications
+
+<!-- _class: image -->
+
+![w:800 h:400](images/Kernel_Layout.png)
+
+---
+
+# Introduction - Why eBPF?
+
 ## Concrètement
 
 eBPF change complètement la donne. Cette technologie permet aux développeurs d’exécuter des programmes confinés dans le noyau, et ainsi d’ajouter de nouvelles fonctionnalités au système d’exploitation qui tourne sur une machine. Le système d'exploitation garantit alors la sûreté des programmes grâce à un vérificateur, et assure une vitesse d'exécution égale au code natif à l'aide d'un compilateur Just-In-Time (JIT). En conséquence, une vague de projets basés sur eBPF a vu le jour, couvrant un large éventail d’applications, notamment pour des fonctionnalités de réseau, d'observabilité et de sécurité nouvelle génération.
 
 ---
 
-## Introduction - How it works?
+# Introduction - How it works?
+
+## Les points d'attaches
+
+Les programmes eBPF sont pilotés par des événements et sont exécutés lorsque le noyau ou une application passe un certain hook (point d’attache). Les hooks prédéfinis incluent les appels système, l'entrée/sortie de fonctions, les points de trace du noyau, les événements réseau, et d’autres encore.
+
+![bg right h:300](images/syscall-hook.png)
 
 ---
 
+# Introduction - How it works?
+
+## L'évolutivité
+
+Si un hook prédéfini n'existe pas pour un besoin particulier, il est possible de créer une sonde noyau (kprobe) ou une sonde utilisateur (uprobe) pour attacher des programmes eBPF presque n'importe où dans le noyau ou les applications utilisateur.
+
+<!-- _class: image -->
+
+![h:300](images/hook-overview.png)
