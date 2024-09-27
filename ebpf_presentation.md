@@ -24,6 +24,9 @@ style: |
   section.image p:has(img) {
     text-align: center;
   }
+  section.code pre {
+    font-size: 2rem;
+  }
   
 paginate: true
 ---
@@ -115,3 +118,30 @@ Si un hook prédéfini n'existe pas pour un besoin particulier, il est possible 
 <!-- _class: image -->
 
 ![h:300](images/hook-overview.png)
+
+---
+
+# Introduction - Main Applications
+
+- BCC
+- Cilium
+- Falco
+- Pixie
+- Tetragon
+
+
+reference: [Official site - Applications](https://ebpf.io/fr-fr/applications/)
+
+---
+
+# Example using bcc
+
+## Install bcc
+
+<!-- _class: code -->
+
+On ubuntu 24.04
+
+```bash
+sudo apt-get install bpfcc-tools linux-headers-$(uname -r)
+```
