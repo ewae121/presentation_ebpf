@@ -145,3 +145,66 @@ On ubuntu 24.04
 ```bash
 sudo apt-get install bpfcc-tools linux-headers-$(uname -r)
 ```
+
+---
+
+# Example using bcc
+
+## Principe
+
+- Write a python script using the bcc library
+- This python script will contain a C program to be loaded by the kernel
+- Then the C program is attached to a probe that will execute the program
+- At the end run the script
+
+---
+
+# Example using bcc
+
+## Principe
+
+- Write a python script using the bcc library
+
+<!-- _class: code -->
+
+```py
+#!/usr/bin/python3
+
+from bcc import BPF
+```
+
+---
+
+# Example using bcc
+
+## Principe
+
+- Write a C program to be executed in the kernel
+
+<!-- _class: code -->
+
+```py
+program = """
+int hello_world(void *ctx) {
+    bpf_trace_printk("Hello, World!\\n");
+    return 0;
+}
+"""
+```
+
+---
+
+# Example using bcc
+
+## Principe
+
+- Attach the C program to a probe that will execute it
+
+<!-- _class: code -->
+
+```py
+b = BPF(text=program)
+clone = b.get_syscall_fnname("clone")
+b.attach_kprobe(event=clone, fn_name="hello_world")
+b.trace_print()
+```
