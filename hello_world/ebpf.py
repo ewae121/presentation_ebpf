@@ -19,7 +19,7 @@ int hello_world(void *ctx) {
 }
 """
 
-b = BPF(text=program)
+b = BPF(text=program_uid)
 clone = b.get_syscall_fnname("clone")
 b.attach_kprobe(event=clone, fn_name="hello_world")
 b.trace_print()
