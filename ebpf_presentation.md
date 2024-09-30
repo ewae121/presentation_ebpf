@@ -229,3 +229,66 @@ int hello_world(void *ctx) {
 }
 """
 ```
+
+---
+
+# Example using bcc
+
+## BPF hash maps
+
+BPF ‘maps’ provide generic storage of different types for sharing data between kernel and user space. There are several storage types available, including hash, array. Several of the map types exist to support specific BPF helpers that perform actions based on the map contents. The maps are accessed from BPF programs via BPF helpers which are documented in the man-pages for bpf-helpers(7).
+
+---
+
+# Example using bcc
+
+## Hash map example - Kernel Space
+
+<!-- _class: code -->
+
+```py
+program_map = """
+BPF_HASH(clones);
+
+int hello_world(void *ctx) {
+    u64 uid = bpf_get_current_uid_gid() & 0xFFFFFFFF;
+    u64 counter = 0;
+    u64 *p;
+
+    p = clones.lookup(&uid);
+    if (p != 0) {
+        counter = *p;
+    }
+
+    counter++;
+    clones.update(&uid, &counter);
+
+    return 0;
+}
+"""
+```
+
+---
+
+# Example using bcc
+
+## Hash map example - User Space
+
+<!-- _class: code -->
+
+```py
+b = BPF(text=program_map)
+clone = b.get_syscall_fnname("clone")
+b.attach_kprobe(event=clone, fn_name="hello_world")
+
+while True:
+    sleep(1)
+    s = ""
+    if b["clones"]:
+        for k, v in b["clones"].items():
+            s += f"ID: {k.value}, Clones: {v.value}\t"
+        print(s)
+    else:
+        print("No clones found")
+```
+
