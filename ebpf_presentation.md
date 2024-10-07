@@ -292,3 +292,24 @@ while True:
         print("No clones found")
 ```
 
+---
+
+# BPF Tools
+
+BPF tools provides scripts help you to profile your system.
+
+You can install those tools on Ubuntu 22.04 using:
+
+``` 
+sudo apt install libbpf-tools
+```
+
+and check the install:
+
+``` 
+sudo opensnoop-bpfcc
+```
+
+```
+sudo opensnoop --name cat
+```
