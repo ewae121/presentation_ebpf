@@ -294,7 +294,9 @@ while True:
 
 ---
 
-# BPF Tools
+# BCC Tools
+
+## Installation
 
 BPF tools provides scripts help you to profile your system.
 
@@ -310,6 +312,71 @@ and check the install:
 sudo opensnoop-bpfcc
 ```
 
+[BCC Official website](https://github.com/iovisor/bcc)
+
+---
+
+# BCC Tools
+
+## Opensnoop example
+
+<!-- _class: code -->
+
+Opensnoop is used to trace open() syscalls.
+
+```bash
+ewae@ewae-jupiter:~/dev/presentation_ebpf$ sudo opensnoop --name cat
+PID    COMM              FD ERR PATH
+4832   cat                3   0 /etc/ld.so.cache
+4832   cat                3   0 /lib/x86_64-linux-gnu/libc.so.6
+4832   cat                3   0 /usr/lib/locale/locale-archive
+4832   cat                3   0 ebpf_hello.py
 ```
-sudo opensnoop --name cat
+
+---
+
+# BCC Tools
+
+## Strace equivalent
+
+<!-- _class: code -->
+
+Opensnoop is used to trace open() syscalls.
+
+```bash
+ewae@ewae-jupiter:~/dev/presentation_ebpf/hello_world$ strace cat ebpf_hello.py 
+execve("/usr/bin/cat", ["cat", "ebpf_hello.py"], 0x7ffcecd40c58 /* 79 vars */) = 0
+brk(NULL)                               = 0x60e76366f000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x76ee14b89000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=87887, ...}) = 0
+mmap(NULL, 87887, PROT_READ, MAP_PRIVATE, 3, 0) = 0x76ee14b73000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+...
+munmap(0x76ee14b73000, 87887)           = 0
+getrandom("\x59\x28\x71\x32\xf0\xd6\x50\x2f", 8, GRND_NONBLOCK) = 8
+brk(NULL)                               = 0x60e76366f000
+brk(0x60e763690000)                     = 0x60e763690000
+openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=5723792, ...}) = 0
+mmap(NULL, 5723792, PROT_READ, MAP_PRIVATE, 3, 0) = 0x76ee14200000
+close(3)                                = 0
+fstat(1, {st_mode=S_IFCHR|0600, st_rdev=makedev(0x88, 0x2), ...}) = 0
+openat(AT_FDCWD, "ebpf_hello.py", O_RDONLY) = 3
+...
 ```
+
+---
+
+# BCC Tools
+
+## Current toolkit
+
+[BCC Official website](https://github.com/iovisor/bcc)
+
+<!-- _class: image -->
+
+![h:300](images/bcc_tracing_tools_2019.png)
+
