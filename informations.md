@@ -47,3 +47,14 @@ or example you can refer to:
 https://netflixtechblog.com/linux-performance-analysis-in-60-000-milliseconds-accc10403c55
  to investigate a perfomance issue on a Linux Machine.
 
+---
+
+readelf
+
+sudo apt install binutils
+
+---
+
+uprobe ebpf
+
+https://getanteon.com/blog/exploring-function-tracing-with-ebpf-and-uprobes/#prerequisites-7754e5ed-e3f3-489e-9613-957610de7d29

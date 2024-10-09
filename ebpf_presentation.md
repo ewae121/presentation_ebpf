@@ -294,6 +294,85 @@ while True:
 
 ---
 
+# Example using bcc
+
+## Uprobe example - Kernel Space
+
+<!-- _class: code -->
+
+```py
+bpf_text = """
+#include <uapi/linux/ptrace.h>
+int printret(struct pt_regs *ctx) {
+    if (!ctx->ax)
+        return 0;
+
+    char str[80] = {};
+    bpf_probe_read(&str, sizeof(str), (void *)ctx->ax);
+    bpf_trace_printk("%s\\n", &str);
+
+    return 0;
+};
+"""
+```
+
+---
+
+# Example using bcc
+
+## Uprobe example - User space
+
+<!-- _class: code -->
+
+```py
+b = BPF(text=bpf_text)
+b.attach_uretprobe(name="/bin/bash", sym="readline", fn_name="printret")
+
+# header
+print("%-9s %-6s %s" % ("TIME", "PID", "COMMAND"))
+
+# format output
+while 1:
+    try:
+        (task, pid, cpu, flags, ts, msg) = b.trace_fields()
+    except ValueError:
+        continue
+    print("%-9s %-6d %s" % (strftime("%H:%M:%S"), pid, msg))
+```
+
+---
+
+# Example using bcc
+
+## Uprobe example - Finding ELF symbols
+
+<!-- _class: code -->
+
+You can read Elf symbols using:
+
+```bash
+$ objdump -T /bin/bash
+```
+
+to obtain:
+
+```bash
+ewae@ewae-jupiter:~/dev/presentation_ebpf/hello_world$ objdump -T /bin/bash | grep readline
+00000000001612b8 g    DO .bss   0000000000000008  Base        rl_readline_state
+00000000000df300 g    DF .text  000000000000038b  Base        readline_internal_char
+00000000000dec00 g    DF .text  0000000000000260  Base        readline_internal_setup
+000000000009e8d0 g    DF .text  00000000000000ed  Base        posix_readline_initialize
+00000000000df690 g    DF .text  00000000000000c8  Base        readline
+00000000001612c0 g    DO .bss   0000000000000004  Base        bash_readline_initialized
+000000000015a180 g    DO .data  0000000000000008  Base        rl_readline_name
+0000000000160748 g    DO .data  0000000000000004  Base        rl_readline_version
+00000000000a6f10 g    DF .text  000000000000001d  Base        initialize_readline
+0000000000161030 g    DO .bss   0000000000000004  Base        current_readline_line_index
+0000000000160da0 g    DO .bss   0000000000000008  Base        current_readline_prompt
+```
+
+---
+
 # BCC Tools
 
 ## Installation

@@ -19,7 +19,7 @@ int printret(struct pt_regs *ctx) {
 };
 """
 b = BPF(text=bpf_text)
-b.attach_uretprobe(name="/bin/grep", sym="_obstack_memory_used", fn_name="printret")
+b.attach_uretprobe(name="/bin/bash", sym="readline", fn_name="printret")
 
 # header
 print("%-9s %-6s %s" % ("TIME", "PID", "COMMAND"))
