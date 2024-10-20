@@ -47,37 +47,95 @@ paginate: true
 
 - Introduction
 - Usage example with bcc
-- Limitation
 
 ---
 
-# Introduction - What is eBPF?
+# Introduction
 
 ## Definition
 
-eBPF est une technologie révolutionnaire issue du noyau Linux qui peut exécuter des programmes dans un environnement confiné, mais avec les privilèges du noyau du système d'exploitation. eBPF est utilisé pour étendre de façon sûre et efficace les capacités du noyau, sans qu'il soit nécessaire de modifier le code source du noyau ou de charger des modules.
+  eBPF est une technologie révolutionnaire issue du noyau Linux qui peut exécuter des programmes dans un environnement confiné, mais avec les privilèges du noyau du système d'exploitation.
 
 ---
 
-# Introduction - What is eBPF?
+# Introduction
+
+## Why eBPF?
+
+  eBPF est utilisé pour étendre de façon sûre et efficace les capacités du noyau, sans qu'il soit nécessaire de modifier le code source du noyau ou de charger des modules.
+
+---
+
+# Introduction
 
 ## Naming
 
-BPF signifiait à l'origine Berkeley Packet Filter, mais maintenant qu’eBPF (« extended BPF ») peut faire bien plus que filtrer des paquets, l'acronyme n'a plus de sens. eBPF est désormais considéré comme un terme autonome qui ne signifie plus vraiment quelque chose. Dans le code source de Linux, le terme BPF persiste, et dans les outils et la documentation, les termes BPF et eBPF sont généralement utilisés de manière interchangeable. Le BPF d'origine est parfois appelé cBPF (classic BPF) pour le distinguer d’eBPF.
+BPF signifiait à l'origine Berkeley Packet Filter. eBPF signifie "extended BPF".
+
+Mais maintenant qu’eBPF peut faire bien plus que filtrer des paquets, l'acronyme n'a plus de sens.
+
+eBPF est désormais considéré comme un terme autonome qui ne signifie plus vraiment quelque chose. Dans le code source de Linux, le terme BPF persiste, et dans les outils et la documentation, les termes BPF et eBPF sont généralement utilisés de manière interchangeable. Le BPF d'origine est parfois appelé cBPF (classic BPF) pour le distinguer d’eBPF.
+
+---
+
+# Introduction
+
+## Logo
 
 ![w:256](images/EBPF_logo.png) Le logo se nomme eBee. Il a été choisi lors du premier sommet d'eBPF
+
+
+---
+
+# Introduction
+
+## State of the art
+
+Depuis toujours, le système d'exploitation est l’endroit idéal pour implémenter des solutions d'observabilité, de sécurité et de mise en réseau, en raison de la situation privilégiée du noyau pour superviser et contrôler l'ensemble du système.
+
+Évidemment, le noyau d’un système d'exploitation est difficile à faire évoluer en raison de son rôle central et de ses exigences élevées en matière de stabilité et de sécurité. L’innovation au cœur du système d’exploitation suit donc un rythme plus lent que celui des applications utilisateurs.
+
+---
+
+# Introduction
+
+## Improvments
+
+eBPF change complètement la donne. Cette technologie permet aux développeurs d’exécuter des programmes confinés dans le noyau, et ainsi d’ajouter de nouvelles fonctionnalités au système d’exploitation qui tourne sur une machine.
+
+Le système d'exploitation garantit alors la sûreté des programmes grâce à un vérificateur, et assure une vitesse d'exécution égale au code natif à l'aide d'un compilateur Just-In-Time (JIT).
+
+---
+
+# Introduction
+
+## History
+
+- 1992: Berkeley Packet Filter
+- 2014: eBPF dans sa forme moderne
+
+Depuis le début, Netflix, Meta, Amazon utilisent massivement et contribuent à eBPF pour analyzer les charges de travail de leurs ressourcent utilisant Linux.
+
+---
+
+# Introduction
+
+En conséquence, une vague de projets basés sur eBPF a vu le jour, couvrant un large éventail d’applications, notamment pour des fonctionnalités de réseau, d'observabilité et de sécurité nouvelle génération.
+
+- BCC
+- Cilium
+- Falco
+- Pixie
+- Tetragon
+
+
+reference: [Official site - Applications](https://ebpf.io/fr-fr/applications/)
 
 ---
 
 ![bg auto](images/state_of_ebpf.png)
 
 ---
-
-# Introduction - Why eBPF?
-
-## Philosophie
-
-Depuis toujours, le système d'exploitation est l’endroit idéal pour implémenter des solutions d'observabilité, de sécurité et de mise en réseau, en raison de la situation privilégiée du noyau pour superviser et contrôler l'ensemble du système. Évidemment, le noyau d’un système d'exploitation est difficile à faire évoluer en raison de son rôle central et de ses exigences élevées en matière de stabilité et de sécurité. L’innovation au cœur du système d’exploitation suit donc un rythme plus lent que celui des applications utilisateurs.
 
 ---
 
@@ -88,14 +146,6 @@ Depuis toujours, le système d'exploitation est l’endroit idéal pour impléme
 <!-- _class: image -->
 
 ![w:800 h:400](images/Kernel_Layout.png)
-
----
-
-# Introduction - Why eBPF?
-
-## Concrètement
-
-eBPF change complètement la donne. Cette technologie permet aux développeurs d’exécuter des programmes confinés dans le noyau, et ainsi d’ajouter de nouvelles fonctionnalités au système d’exploitation qui tourne sur une machine. Le système d'exploitation garantit alors la sûreté des programmes grâce à un vérificateur, et assure une vitesse d'exécution égale au code natif à l'aide d'un compilateur Just-In-Time (JIT). En conséquence, une vague de projets basés sur eBPF a vu le jour, couvrant un large éventail d’applications, notamment pour des fonctionnalités de réseau, d'observabilité et de sécurité nouvelle génération.
 
 ---
 
@@ -118,19 +168,6 @@ Si un hook prédéfini n'existe pas pour un besoin particulier, il est possible 
 <!-- _class: image -->
 
 ![h:300](images/hook-overview.png)
-
----
-
-# Introduction - Main Applications
-
-- BCC
-- Cilium
-- Falco
-- Pixie
-- Tetragon
-
-
-reference: [Official site - Applications](https://ebpf.io/fr-fr/applications/)
 
 ---
 
